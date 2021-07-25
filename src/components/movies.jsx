@@ -7,12 +7,20 @@ export default class Movies extends Component {
   };
 
   handleDelete = (movie) => {
-    console.log("Deleting movie", movie.title);
+    const movies = this.state.movies.filter((m) => m._id !== movie._id);
+
+    this.setState({ movies: movies });
   };
 
   renderMovies = () => {
+    if (this.state.movies.length === 0)
+      return <p>There are no movies in the database</p>;
+
     return (
       <div>
+        <p>
+          There are currently {this.state.movies.length} movies in the database
+        </p>
         <table className="table">
           <thead>
             <tr>
@@ -46,11 +54,6 @@ export default class Movies extends Component {
   };
 
   render() {
-    return (
-      <div>
-        <h1>Movies</h1>
-        {this.renderMovies()}
-      </div>
-    );
+    return <div>{this.renderMovies()}</div>;
   }
 }
